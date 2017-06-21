@@ -1,0 +1,24 @@
+{
+  "name": "potential-glossary",
+  "version": "1.0.0",
+  "description": "This repo uses the git flow model as found here: http://nvie.com/posts/a-successful-git-branching-model/ https://github.com/petervanderdoes/gitflow-avh",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zetagon/potential-glossary.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zetagon/potential-glossary/issues"
+  },
+  "homepage": "https://github.com/Zetagon/potential-glossary#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "mongoose": "^4.10.7",
+    "socket.io": "^2.0.3"
+  }
+}
