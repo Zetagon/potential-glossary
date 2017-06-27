@@ -14,7 +14,7 @@ const app           = require('express')(),
       io            = socketio(server),
       port          = 8080;
 
-mongoose.connect('mongodb://localhost:/Users');//Connect to database 'test'
+mongoose.connect('mongodb://localhost:/Users');
 let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Database connection error'));
