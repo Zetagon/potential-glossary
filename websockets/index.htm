@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Some title</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <style>
+            body { margin: 0; }
+            #chat { display: flex; justify-content: center; }
+            #chat-container { margin: 1rem; display: flex; flex-direction: column-reverse; width: 25rem; height: 40rem; }
+            #chat-scroll { overflow-y: auto; }
+            #chat-messages { width: 100%; min-height: 2rem; }
+            #chat-typebar { background: white; padding: 0.3rem; margin-top: 0.3rem; border: solid lightgray 0.15rem; border-radius: 0.5rem; margin: 0.5rem; }
+            #chat-textarea { outline:none; border: none; background: transparent; white-space: normal; padding: 0; resize: none; margin-bottom: -0.2rem; font-size: 1rem; font-family: Arial, Helvetica, sans-serif; width: 100%; }
+            .chat-message-row { background: #ffffff; padding: 0.3rem; word-wrap: break-word; font-size: 1rem; font-family: Arial, Helvetica, sans-serif; }
+            .shadow { box-shadow: 1px 1px 3px 3px #ccc; }
+        </style>
+    </head>
+    <body>
+        <div id="chat">
+            <div id="chat-container" class="shadow">
+                <div id="chat-scroll">
+                <div id="chat-messages">
+
+                </div>
+                <div id="chat-typebar">
+                    <textarea placeholder="Type a message and press enter to send" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type a message and press enter to send'" id="chat-textarea" rows="2"></textarea>
+                </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var getTimestamp;
+            if (window.performance.now) {
+                getTimestamp = function () { return window.performance.now(); };
+            } else {
+                if (window.performance.webkitNow) {
+                    getTimestamp = function () { return window.performance.webkitNow(); };
+                } else {
+                    getTimestamp = function () { return new Date().getTime(); };
+                }
+            }
+
+            function writeChat(data) {
+                var row = document.createElement("div");
+                row.classList.add("chat-message-row");
+                var text = document.createTextNode(data);
+                row.appendChild(text);
+                document.getElementById("chat-messages").appendChild(row);
+                var mesagebox = document.getElementById("chat-scroll");
+                mesagebox.scrollTop = mesagebox.scrollHeight;
+            }
+            function clearChat() {
+                document.getElementById("chat-messages").innerHTML = "";
+            }
+
+            var socket = io('http://localhost:7425');
+
+            socket.on('customPing', function (data) {
+                console.log("Client received Ping.");
+                socket.emit('customPong', {});
+            });
+
+            socket.on("chatMessage", function (data) {
+                writeChat(data);
+            });
+            socket.on("chatHistory", function (data) {
+                clearChat();
+                for(var i = 0; i < data.length; i++) {
+                    writeChat(data[i]);
+                }
+            });
+
+            socket.on('date', function (data) {
+                document.getElementById("time").innerText = data.date;
+            });
+
+            document.getElementById("chat-textarea").addEventListener("keydown", function(event) {
+                if(event.keyCode == 13) {
+                    event.preventDefault();
+                    if(document.getElementById("chat-textarea").value.trim() != '') {
+                        socket.emit('chat', { action: "message", text: document.getElementById("chat-textarea").value });
+                    }
+                    document.getElementById("chat-textarea").value = "";
+                }
+            });
+
+            var ping = {
+                timer: 0,
+                firstTimestamp: 0,
+                secondTimestamp: 0,
+                pongReceived: true,
+                pingServer: function() {
+                    if(this.pongReceived) {
+                        this.pongReceived = false;
+                        writeChat("Pinging server...");
+                        this.timer = setTimeout(this.connectionTimedOut, 2000);
+                        this.firstTimestamp = getTimestamp();
+                        socket.emit('customPing', {});
+                    }
+                },
+                handlePong: function () {
+                    this.secondTimestamp = getTimestamp();
+                    this.pongReceived = true;
+                    clearTimeout(this.timer);
+                    this.printPing();
+                },
+                connectionTimedOut: function () {
+                    ping.pongReceived = true;
+                    writeChat("Connection to server timed out!");
+                },
+                printPing: function () {
+                    writeChat(Math.round(10 * (this.secondTimestamp - this.firstTimestamp))/10 + " milliseconds response time");
+                }
+            }
+            socket.on('customPong', function (data) {
+                ping.handlePong();
+            });
+            
+        </script>
+        <button onclick="ping.pingServer();">Ping server</button>
+        <button onclick="socket.emit('chat', { action: 'join' });">Join chat</button>
+        <button onclick="socket.emit('chat', { action: 'leave' });">Leave chat</button>        
+    </body>
+</html>
