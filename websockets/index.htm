@@ -54,7 +54,7 @@
                 document.getElementById("chat-messages").innerHTML = "";
             }
 
-            var socket = io('http://localhost:7425');
+            var socket = io();
 
             socket.on('customPing', function (data) {
                 console.log("Client received Ping.");
