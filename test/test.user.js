@@ -19,6 +19,7 @@ describe('User', function() {
     });
 
     after(function(done) {
+        User.deleteMany({}, (err) => { if (err) console.log(err.message);});
         mongoose.connection.close();
         done();
     });
@@ -55,7 +56,7 @@ describe('User', function() {
                 return saveAndFindUser(pUserName, pPassword)
                     .then(function(user) {
                         let check = (pUserName === user.username);
-                        User.deleteMany({}, function(err) {
+                        user.remove( function(err) {
                             if (err) console.log(err.message);
                         });
                         return check;
