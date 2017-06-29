@@ -4,36 +4,25 @@
 const express  = new require('express'),
       User     = require('../models/user'),
       passport = require('passport'),
-      router   = express.Router();
+      router   = express.Router(),
+      register = require('../passport/register');
 
 
-router.get('/', (req, res) => {
-    console.log(req.user);
-    res.render('index', {user: req.user});
-});
+
 
 router.get('/register', (req, res) => {
-    res.render('register', { });
+    res.render('register', {});
 });
 
-router.post('/register', (req, res) => {
-    console.log('New registration incoming!');
-    console.log(req.body);
-    User.register(new User({ username: req.body.username }), req.body.password, function( err, account){
-        if(err){
-            console.log('Error registering user!');
-            return res.render('register', {account: account});
-        }
+router.post('/register', register);
 
-        passport.authenticate('local')(req, res, function(){
-            console.log('User registered!');
-            res.redirect('/');
-        });
-    });
-});
+router.get('/', (req, res) => {
+    if(req.isAuthenticated()){
+        res.render('index', {user: req.user});
+    } else {
+        res.render('login', { user: req.user});
+    }
 
-router.get('/login', (req, res) => {
-    res.render('login', { user: req.user});
 });
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
@@ -45,9 +34,6 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-router.get('/profile', checkAuthentication, (req, res) => {
-    res.send(req.session.passport.user + req.user);
-});
 
 function checkAuthentication(req, res, next){
     if(req.isAuthenticated()){
