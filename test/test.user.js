@@ -10,7 +10,9 @@ let db;
 
 describe('User', function() {
     before(function(done) {
-        db = mongoose.connect('mongodb://localhost/test');
+        db = mongoose.connect('mongodb://localhost/test', function(err){
+            if(err) console.log(err);
+        });
         User = require('../models/user');
         mongoose.Promise = Promise;
         done();
@@ -22,21 +24,22 @@ describe('User', function() {
     });
 
     function saveAndFindUser(pUserName, pPassword) {
-        let user = new User({
-            username: pUserName,
-            password: pPassword
-        });
 
         let promise = new Promise(function(resolve, reject) {
+            let user = new User({
+                username: pUserName,
+                password: pPassword
+            });
             user.save(function(err) {
+                if(err)console.log('error! ' + err.message);
                 User.findOne({
                     username: pUserName
                 }, function(err, foundUser) {
                     if (err) {
+                        console.log('Error');
                         console.log(err.message);
                         reject();
                     }
-                    console.log('Resolve!');
                     resolve(foundUser);
                 });
             });
@@ -44,20 +47,24 @@ describe('User', function() {
 
 
         return promise;
-    }
+}
 
     it('finds a user by username', function(done) {
         let findUsername = jsv.forall(jsv.asciinestring, jsv.asciinestring,
             function(pUserName, pPassword) {
                 return saveAndFindUser(pUserName, pPassword)
-                    .then(function(error) {
-                        console.log('then');
-                        User.remove({});
-                        return _.isEqual(pUserName);
+                    .then(function(user) {
+                        let check = (pUserName ===  user.username );
+                        User.deleteMany({}, function(err){
+                            if(err)console.log(err.message);
+                        });
+                        return check;
                     });
             });
-        jsv.assert(findUsername);
-        done();
+        jsv.check(findUsername).then(function(x){
+            assert.equal(x, true);
+            done();
+        });
     });
 
 });
