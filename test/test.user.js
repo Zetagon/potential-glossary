@@ -10,8 +10,8 @@ let db;
 
 describe('User', function() {
     before(function(done) {
-        db = mongoose.connect('mongodb://localhost/test', function(err){
-            if(err) console.log(err);
+        db = mongoose.connect('mongodb://localhost/test', function(err) {
+            if (err) console.log(err);
         });
         User = require('../models/user');
         mongoose.Promise = Promise;
@@ -31,7 +31,7 @@ describe('User', function() {
                 password: pPassword
             });
             user.save(function(err) {
-                if(err)console.log('error! ' + err.message);
+                if (err) console.log('error! ' + err.message);
                 User.findOne({
                     username: pUserName
                 }, function(err, foundUser) {
@@ -47,21 +47,21 @@ describe('User', function() {
 
 
         return promise;
-}
+    }
 
     it('finds a user by username', function(done) {
         let findUsername = jsv.forall(jsv.asciinestring, jsv.asciinestring,
             function(pUserName, pPassword) {
                 return saveAndFindUser(pUserName, pPassword)
                     .then(function(user) {
-                        let check = (pUserName ===  user.username );
-                        User.deleteMany({}, function(err){
-                            if(err)console.log(err.message);
+                        let check = (pUserName === user.username);
+                        User.deleteMany({}, function(err) {
+                            if (err) console.log(err.message);
                         });
                         return check;
                     });
             });
-        jsv.check(findUsername).then(function(x){
+        jsv.check(findUsername).then(function(x) {
             assert.equal(x, true);
             done();
         });
