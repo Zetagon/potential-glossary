@@ -11,7 +11,7 @@ const express  = new require('express'),
 
 
 router.get('/register', (req, res) => {
-    res.render('register', { });
+    res.render('register', {});
 });
 
 router.post('/register', register);
