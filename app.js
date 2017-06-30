@@ -1,6 +1,7 @@
 /*jslint node: true*/
 /*jslint esversion: 6*/
 'use strict';
+require('dotenv').config();
 const app           = require('express')(),
       bodyparser    = require('body-parser'),
       cookieParser  = require('cookie-parser'),
@@ -14,7 +15,7 @@ const app           = require('express')(),
       io            = socketio(server),
       port          = 8080;
 
-mongoose.connect('mongodb://localhost:/Users');
+mongoose.connect('mongodb://' + process.env.DB_HOST + ':/Users');
 let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Database connection error'));
