@@ -24,24 +24,26 @@ db.once('open', () =>{
     //TODO:
 });
 
+let sessionMiddleware = require('express-session')({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+});
+
 
 app.set('views', './views');//Set directory for views
 app.set('view engine', 'ejs');
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
-
+app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
 
 
 app.use('/', require('./routes/index'));
+require('./sockets/glossary_socket')(io, db, sessionMiddleware);//initialize sockets
 
 // Passport config
 let User = require('./models/user');

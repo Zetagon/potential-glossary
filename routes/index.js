@@ -13,6 +13,13 @@ const express  = new require('express'),
 router.get('/register', (req, res) => {
     res.render('register', {});
 });
+router.get('/glossary', function(req, res){
+    if(req.isAuthenticated()){
+        res.render('glossary');
+    } else {
+        res.redirect('/');
+    }
+});
 
 router.post('/register', register);
 
