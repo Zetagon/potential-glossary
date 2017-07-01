@@ -4,6 +4,15 @@
 let winston = require('winston');
 winston.emitErrs = true;
 
+//All loggers will also log to a log file
+winston.loggers.options.transports = [
+    new (winston.transports.File)({
+        level:'info',
+        filename:'./logs/all-logs.log',
+        maxsize:5242880//5mb
+    })
+];
+
 //For general use
 winston.loggers.add('general', {
     console: {
