@@ -3,15 +3,15 @@
 'use strict';
 
 const User     = require('../models/user'),
-      passport = require('passport');
+      passport = require('passport'),
+      logger   = require('winston').loggers.get('registration-login');
 
 module.exports = function (req, res, next){
     req.logout();
-    console.log('New registration incoming!');
-    console.log(req.body);
+    logger.info('New registration incoming!');
     User.register(new User({ username: req.body.username }), req.body.password, function( err, account){
         if(err){
-            console.log('Error registering user!');
+            logger.error('Error registering user!');
             return res.render('register', {account: account, error: err.message});
         }
 
@@ -20,7 +20,7 @@ module.exports = function (req, res, next){
                 return next(err);
             }
 
-            console.log('User registered!');
+            logger.info('User registered!');
             res.redirect('/');
         });
     });

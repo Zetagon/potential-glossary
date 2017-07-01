@@ -2,16 +2,18 @@
 /*jslint esversion: 6*/
 'use strict';
 
+require('../logger/log');//Initialize winston logger
 let assert = require('assert'),
     mongoose = require('mongoose'),
     jsv = require('jsverify'),
+    logger   = require('winston').loggers.get('test'),
     User;
 let db;
 
 describe('User', function() {
     before(function(done) {
         db = mongoose.connect('mongodb://localhost/test', function(err) {
-            if (err) console.log(err);
+            if (err) logger.error(err);
         });
         User = require('../models/user');
         mongoose.Promise = Promise;
@@ -19,7 +21,7 @@ describe('User', function() {
     });
 
     after(function(done) {
-        User.deleteMany({}, (err) => { if (err) console.log(err.message);});
+        User.deleteMany({}, (err) => { if (err) logger.error(err.message);});
         mongoose.connection.close();
         done();
     });
@@ -32,13 +34,12 @@ describe('User', function() {
                 password: pPassword
             });
             user.save(function(err) {
-                if (err) console.log('error! ' + err.message);
+                if (err) logger.error(err.message);
                 User.findOne({
                     username: pUserName
                 }, function(err, foundUser) {
                     if (err) {
-                        console.log('Error');
-                        console.log(err.message);
+                        logger.error(err.message);
                         reject();
                     }
                     resolve(foundUser);
@@ -57,7 +58,7 @@ describe('User', function() {
                     .then(function(user) {
                         let check = (pUserName === user.username);
                         user.remove( function(err) {
-                            if (err) console.log(err.message);
+                            if (err) logger.error(err.message);
                         });
                         return check;
                     });
