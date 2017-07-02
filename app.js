@@ -2,7 +2,8 @@
 /*jslint esversion: 6*/
 'use strict';
 require('dotenv').config();
-const app           = require('express')(),
+const express       = require('express'),
+      app           = express(),
       bodyparser    = require('body-parser'),
       cookieParser  = require('cookie-parser'),
       http          = require('http'),
@@ -13,6 +14,7 @@ const app           = require('express')(),
       LocalStrategy = require('passport-local'),
       server        = http.createServer(app),
       io            = socketio(server),
+      path          = require('path'),
       port          = 8080;
 
 mongoose.connect('mongodb://' + process.env.DB_HOST + ':/Users');
@@ -39,7 +41,7 @@ app.use(cookieParser());
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', require('./routes/index'));

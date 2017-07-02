@@ -1,10 +1,68 @@
-<script src="/socket.io/socket.io.js"></script>
-<script>
- var socket = io('localhost:8080');
- socket.on('connect', function() {
-     
- });
-</script>
-<body>
+<html>
 
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+    <link rel="shortcut icon" href="images/infinite.png">
+    <link rel="stylesheet" type="text/css" href="css/client-glos.css">
+    <script src="script/client-glos.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="container"></div>
+    <script>
+        var socket = io('http://localhost:8080');
+        // Tutorial begin here!
+        function printArray(array) {
+            // Do whatever, maybe check if the answers are correct
+            markAnswers([true, false, false, true]); // setting the colors of the inputs
+            focusFirstIncorrectInput();
+            setCorrectionString("Du svarade: " + array.toString().replace(/,/g, ", ")); // Setting the correction string as a demonstration
+        }
+
+        function getDescription() {
+            socket.emit('getDescription');
+            let promise = new Promise((resolve, reject) => {
+                socket.on('sendDescription', function(data) {
+                    resolve(data);
+                });
+            });
+            return promise
+        }
+
+        var descriptions = [ // Example of valid description array
+            {
+                text: "hej hej",
+                url: "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"
+            },
+            {
+                text: "andra grejen",
+                url: "http://www.roadtovr.com/wp-content/uploads/2016/02/htc-vive-large-1.png"
+            },
+            {
+                text: "Här är det ingen bild\nMen det är desto mer text\n\n blablablaha\n\n\n\n\n\ndfhsdfhsdfh",
+                url: ""
+            },
+            {
+                text: "",
+                url: "https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg"
+            }
+        ]
+
+        initializePage(); // Called only once to layout the page
+        setCallback(printArray); // Sets the function to be called when the user submit their response this can be reset at any time
+
+        // These are called every new question
+        //      setDescriptions(descriptions); // Sending the array of descriptions for display
+        getDescription().then((description) => {
+            setDescriptions(data)
+        });
+        setInputboxes(5); // Generating the inputboxes insert the number of inputboxes required
+        setChoices(descriptions);
+        setCorrectionString(""); // Maybe clear the correction on new question Setting a new strinf will however replace the current text
+        setCorrectionString("Här kommer vi att rätta dig när du skriver fel!"); // Set the correction string
+    </script>
 </body>
+
+</html>
