@@ -13,18 +13,27 @@
     <div class="container"></div>
     <script>
         var socket = io('http://localhost:8080');
+
+        function sendUserInput(userInput) {
+            socket.emit('sendUserInput');
+        }
         // Tutorial begin here!
         function printArray(array) {
             // Do whatever, maybe check if the answers are correct
-            markAnswers([true, false, false, true]); // setting the colors of the inputs
-            focusFirstIncorrectInput();
-            setCorrectionString("Du svarade: " + array.toString().replace(/,/g, ", ")); // Setting the correction string as a demonstration
+            //markAnswers([true, false, false, true]); // setting the colors of the inputs
+            socket.emit('sendUserInput')
+            socket.on('sendUserInputResponse', function(data) {
+                markAnswers(data);
+                focusFirstIncorrectInput();
+                setCorrectionString("Du svarade: " + array.toString().replace(/,/g, ", ")); // Setting the correction string as a demonstration
+            });
         }
 
         function getDescription() {
             socket.emit('getDescription');
             let promise = new Promise((resolve, reject) => {
-                socket.on('sendDescription', function(data) {
+                socket.on('getDescriptionResponse', function(data) {
+                    console.log(data);
                     resolve(data);
                 });
             });
@@ -56,7 +65,7 @@
         // These are called every new question
         //      setDescriptions(descriptions); // Sending the array of descriptions for display
         getDescription().then((description) => {
-            setDescriptions(data)
+            setDescriptions(description);
         });
         setInputboxes(5); // Generating the inputboxes insert the number of inputboxes required
         setChoices(descriptions);

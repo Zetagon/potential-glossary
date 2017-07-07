@@ -41,8 +41,12 @@ module.exports = function init(pIo, pDb, sessionMiddleware) {
         allClients.push(socket);
 
         socket.on('getDescription', function() {
-            socket.emit('sendDescription', description);
+            socket.emit('getDescriptionResponse', description);
         });
+
+        socket.on('sendUserInput', function(){
+            socket.emit('sendUserInputResponse', [true, false, true, true]);
+        })
 
 
         socket.on('disconnect', function(reason) {
