@@ -5,7 +5,10 @@
 const User     = require('../models/user'),
       passport = require('passport');
 
-module.exports = function (req, res, next){
+/*
+ * handles registration
+ */
+function register(req, res, next){
     req.logout();
     console.log('New registration incoming!');
     console.log(req.body);
@@ -25,3 +28,4 @@ module.exports = function (req, res, next){
         });
     });
 }
+module.exports = register;
