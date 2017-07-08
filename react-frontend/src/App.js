@@ -9,9 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <DescriptionContainer/>
-        <InputContainer
-
-        />
+        <InputContainer />
       </div>
     );
   }
@@ -19,7 +17,6 @@ class App extends Component {
 
 //eslint-disable-next-line
 class DescriptionContainer extends Component {
-
   render(){
     return (
       <div className="description-container">
@@ -63,9 +60,7 @@ class InputContainer extends Component {
           { boxes }
         </div>
       </div>);
-      
   }
 }
-
 
 export default App;
