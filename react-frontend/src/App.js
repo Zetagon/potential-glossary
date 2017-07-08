@@ -7,6 +7,14 @@ import '../public/css/client-glos.css';
 class App extends Component {
   render() {
     return (
+      <GlossaryTrainer/>
+    );
+  }
+}
+
+class GlossaryTrainer extends Component {
+  render(){
+    return (
       <div className="App">
         <DescriptionContainer/>
         <InputContainer
