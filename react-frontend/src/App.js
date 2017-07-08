@@ -9,7 +9,8 @@ class App extends Component {
     return (
       <div className="App">
         <DescriptionContainer/>
-        <InputContainer />
+        <InputContainer
+          numberOfBoxes={ 5 }/>
       </div>
     );
   }
@@ -43,13 +44,10 @@ class InputBox extends Component {
 //eslint-disable-next-line
 class InputContainer extends Component {
   renderInputboxes(){
-    let boxes = [];
-    for(let i = 0; i < 5 ; i++){
-      boxes.push(
-        <InputBox key={ i } />
-      );
-    }
-    return boxes;
+    let boxes = new Array(this.props.numberOfBoxes).fill(null);
+    return boxes.map((x, index) => {
+      return <InputBox key={ index } />;
+    });
   }
 
   render(){
