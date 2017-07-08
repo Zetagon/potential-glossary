@@ -13,12 +13,24 @@ class App extends Component {
 }
 
 class GlossaryTrainer extends Component {
+  renderCorrectionArea(){
+    return(
+      <div className="correction-container">
+        <div>
+          <div className="error-text"> Correction! </div>
+        </div>
+      </div>
+    );
+  }
+
+
   render(){
     return (
       <div className="App">
         <DescriptionContainer/>
         <InputContainer
           numberOfBoxes={ 5 }/>
+        { this.renderCorrectionArea() }
       </div>
     );
   }
@@ -51,6 +63,12 @@ class InputBox extends Component {
 
 //eslint-disable-next-line
 class InputContainer extends Component {
+  renderSubmitButton(){
+    return(
+      <div className="submit-button"> Submit! </div>
+    );
+  }
+
   renderInputboxes(){
     let boxes = new Array(this.props.numberOfBoxes).fill(null);
     return boxes.map((x, index) => {
@@ -65,6 +83,7 @@ class InputContainer extends Component {
         <div className="input-flex-container">
           { boxes }
         </div>
+        {this.renderSubmitButton()}
       </div>);
   }
 }
