@@ -13,7 +13,26 @@ class GlossaryTrainer extends Component {
       correctionMessage: "Correction!" 
     }
   }
-  
+
+  getCorrectAnswers(){
+    return {
+      synonyms: [
+        {
+          alternatives: [
+            {text: "hej"},
+            {text: "hejsan"}
+          ]
+        },
+        {
+          alternatives: [
+            {text: "god kväll"},
+            {text: "god afton"}
+          ]
+        }
+      ]
+    }
+  }
+
   renderCorrectionArea(){
     return(
       <div className="correction-container">
