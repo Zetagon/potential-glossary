@@ -1,3 +1,9 @@
+/**
+ * @fileOverview Main file for glossary trainer
+ * @name GlossaryTrainer.jsx
+ * @author 
+ * @license 
+ */
 /*jslint esversion:6*/
 import React, { Component } from 'react';
 import logo from '../logo.svg';
@@ -14,6 +20,10 @@ class GlossaryTrainer extends Component {
     }
   }
 
+  /**
+   * Returns a sample list of correct answers
+   * @returns {Answer} return_description
+   */
   getCorrectAnswers(){
     return {
       synonyms: [
