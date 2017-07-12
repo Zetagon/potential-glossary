@@ -1,0 +1,63 @@
+exports[`test number of boxes equal to synonyms 1`] = `
+<div
+  className="input-container">
+  <div
+    className="input-flex-container">
+    <div
+      className="input-box">
+      <input
+        className="the-input"
+        tabIndex="1" />
+    </div>
+    <div
+      className="input-box">
+      <input
+        className="the-input"
+        tabIndex="1" />
+    </div>
+  </div>
+  <div
+    className="submit-button"
+    onClick={undefined}>
+     Submit! 
+  </div>
+</div>
+`;
+
+exports[`test number of boxes equal to synonyms 2`] = `
+<div
+  className="input-container">
+  <div
+    className="input-flex-container">
+    <div
+      className="input-box">
+      <input
+        className="the-input"
+        tabIndex="1" />
+    </div>
+    <div
+      className="input-box">
+      <input
+        className="the-input"
+        tabIndex="1" />
+    </div>
+    <div
+      className="input-box">
+      <input
+        className="the-input"
+        tabIndex="1" />
+    </div>
+    <div
+      className="input-box">
+      <input
+        className="the-input"
+        tabIndex="1" />
+    </div>
+  </div>
+  <div
+    className="submit-button"
+    onClick={undefined}>
+     Submit! 
+  </div>
+</div>
+`;
