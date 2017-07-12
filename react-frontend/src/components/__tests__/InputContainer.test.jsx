@@ -1,5 +1,5 @@
 import React from 'react';
-import {InputContainer, InputBox } from './InputContainer.jsx'
+import {InputContainer, InputBox } from '../InputContainer.jsx'
 import renderer from 'react-test-renderer';
 
 test('number of boxes equal to synonyms', ()=> {
