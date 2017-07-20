@@ -1,0 +1,147 @@
+exports[`test test 1`] = `
+<div
+  className="App">
+  <div
+    className="description-container">
+    <div
+      className="description-box">
+      <div
+        className="description-text">
+         
+        Hej
+         
+      </div>
+      <div
+        className="description-image">
+          
+      </div>
+    </div>
+  </div>
+  <div
+    className="input-container">
+    <div
+      className="input-flex-container">
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+    </div>
+    <div
+      className="submit-button"
+      onClick={[Function]}>
+       Submit! 
+    </div>
+  </div>
+  <div
+    className="correction-container">
+    <div>
+      <div
+        className="error-text">
+         
+        Correction!
+         
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`test test 2`] = `
+<div
+  className="App">
+  <div
+    className="description-container">
+    <div
+      className="description-box">
+      <div
+        className="description-text">
+         
+        Hej
+         
+      </div>
+      <div
+        className="description-image">
+          
+      </div>
+    </div>
+  </div>
+  <div
+    className="input-container">
+    <div
+      className="input-flex-container">
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+      <div
+        className="input-box">
+        <input
+          className="the-input"
+          tabIndex="1" />
+      </div>
+    </div>
+    <div
+      className="submit-button"
+      onClick={[Function]}>
+       Submit! 
+    </div>
+  </div>
+  <div
+    className="correction-container">
+    <div>
+      <div
+        className="error-text">
+         
+        this is a test string
+         
+      </div>
+    </div>
+  </div>
+</div>
+`;

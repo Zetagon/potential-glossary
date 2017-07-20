@@ -13,34 +13,17 @@ import {DescriptionContainer} from './DescriptionContainer.jsx'
 import {InputContainer, InputBox } from './InputContainer.jsx'
 
 class GlossaryTrainer extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    this.setCorrectionString = this.setCorrectionString.bind(this);
     this.state = {
       correctionMessage: "Correction!" 
     }
+
   }
 
-  /**
-   * Returns a sample list of correct answers
-   * @returns {Answer} return_description
-   */
-  getCorrectAnswers(){
-    return {
-      synonyms: [
-        {
-          alternatives: [
-            {text: "hej"},
-            {text: "hejsan"}
-          ]
-        },
-        {
-          alternatives: [
-            {text: "god kväll"},
-            {text: "god afton"}
-          ]
-        }
-      ]
-    }
+  setCorrectionString(correction){
+    this.setState({correctionMessage:correction});
   }
 
   renderCorrectionArea(){
@@ -54,14 +37,14 @@ class GlossaryTrainer extends Component {
   }
 
   handleSubmit(){
-    alert('hello!');
+    this.setCorrectionString('fel svar!');
   }
 
   render(){
     return (
       <div className="App">
         <DescriptionContainer/>
-        <InputContainer numberOfBoxes={ 5 } onClickProp={this.handleSubmit}/>
+        <InputContainer numberOfBoxes={ 5 } onClickProp={this.handleSubmit.bind(this)}/>
         { this.renderCorrectionArea() }
       </div>
     );
