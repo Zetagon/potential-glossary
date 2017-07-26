@@ -6,13 +6,30 @@ import '../../public/css/client-glos.css';
 
 //eslint-disable-next-line
 class InputBox extends Component {
+  constructor(props){
+    super(props);
+    this.focus = this.focus.bind(this);
+  }
+
+
+  focus() {
+    this.textInput.focus();
+  }
+
+
   render(){
     let divStyle = {
       background: this.props.background_color
     };
     return (
-      <div className="input-box">
-        <input className="the-input" tabIndex="1"/>
+      <div
+        className="input-box"
+        style={divStyle}>
+        <input
+          className="the-input"
+          tabIndex="1"
+          ref={ this.props.inputRef}
+        />
       </div>
     );
   }
@@ -33,12 +50,16 @@ class InputContainer extends Component {
     this.state = {
       inputBoxStatus: []
     }
+    this.inputBoxRef = [];/* An array of references to inputbox dom-elements */ 
     this.highLightInputBoxes = this.highLightInputBoxes.bind(this);
   }
 
   renderSubmitButton(){
     return(
-      <div className="submit-button" onClick={this.props.onClickProp}> Submit! </div>
+      <div
+        className="submit-button"
+        onClick={() => this.submitButtonOnClick()
+        }> Submit! </div>
     );
   }
 
@@ -50,15 +71,16 @@ class InputContainer extends Component {
       'NotSet',
       'Incorrect'
     ]);
+    this.inputBoxRef[1].focus();
   }
 
   renderInputboxes(){
     let boxes = new Array(this.props.numberOfBoxes).fill(null);
-    return boxes.map((x, index) => {
-      return <InputBox key={ index } />;
     boxes = boxes.map((x, index) => {
       return <InputBox
                key={ index }
+               /* give a callback so that we can get a reference to the inputbox DOM element */
+               inputRef={ el => this.inputBoxRef.push(el)} 
                background_color={
                  CorrectColorMap[this.state.inputBoxStatus[index]]
                } />;

@@ -22,31 +22,56 @@ exports[`test test 1`] = `
     <div
       className="input-flex-container">
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
@@ -96,31 +121,56 @@ exports[`test test 2`] = `
     <div
       className="input-flex-container">
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
       </div>
       <div
-        className="input-box">
+        className="input-box"
+        style={
+          Object {
+            "background": undefined,
+          }
+        }>
         <input
           className="the-input"
           tabIndex="1" />
