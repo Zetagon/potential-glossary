@@ -8,13 +8,16 @@ exports[`test test 1`] = `
       <div
         className="description-text">
          
-        Hej
+        hej
          
       </div>
       <div
-        className="description-image">
-          
-      </div>
+        className="description-image"
+        style={
+          Object {
+            "backgroundImage": "url(https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png)",
+          }
+        } />
     </div>
   </div>
   <div
@@ -107,13 +110,16 @@ exports[`test test 2`] = `
       <div
         className="description-text">
          
-        Hej
+        hej
          
       </div>
       <div
-        className="description-image">
-          
-      </div>
+        className="description-image"
+        style={
+          Object {
+            "backgroundImage": "url(https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png)",
+          }
+        } />
     </div>
   </div>
   <div

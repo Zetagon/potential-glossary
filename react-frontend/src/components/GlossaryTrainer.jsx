@@ -43,7 +43,10 @@ class GlossaryTrainer extends Component {
   render(){
     return (
       <div className="App">
-        <DescriptionContainer/>
+        <DescriptionContainer
+          descriptionText="hej"
+          descriptionImage="https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png"
+        />
         <InputContainer numberOfBoxes={ 5 } onClickProp={this.handleSubmit.bind(this)}/>
         { this.renderCorrectionArea() }
       </div>
