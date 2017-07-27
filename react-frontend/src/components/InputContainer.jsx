@@ -9,6 +9,7 @@ class InputBox extends Component {
   constructor(props){
     super(props);
     this.focus = this.focus.bind(this);
+    this.handleKeyEvent = this.handleKeyEvent.bind(this);
   }
 
 
@@ -17,6 +18,9 @@ class InputBox extends Component {
   }
 
 
+  handleKeyEvent(event){
+    this.props.onKeyPressProp(event, this.props.index);
+  }
   render(){
     let divStyle = {
       background: this.props.background_color
@@ -28,6 +32,7 @@ class InputBox extends Component {
         <input
           className="the-input"
           tabIndex="1"
+          onKeyPress={this.handleKeyEvent}
           ref={ this.props.inputRef}
         />
       </div>
@@ -52,15 +57,21 @@ class InputContainer extends Component {
     }
     this.inputBoxRef = [];/* An array of references to inputbox dom-elements */ 
     this.highLightInputBoxes = this.highLightInputBoxes.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   focusFirstIncorrect() {
-    for( let i = 0; i < this.inputBoxRef.length; i++) {
+    return this.focusIncorrectAfter(-1)
+  }
+
+  focusIncorrectAfter(index) {
+    for( let i = index + 1; i < this.inputBoxRef.length; i++) {
       if ( this.state.inputBoxStatus[i] != 'Correct') {
         this.inputBoxRef[i].focus();
-        return
+        return true;
       }
     }
+    return false;
   }
 
   renderSubmitButton(){
@@ -73,22 +84,39 @@ class InputContainer extends Component {
   }
 
   submitButtonOnClick(){
+    this.answersAreMarked = true;
     this.highLightInputBoxes([
       'Correct',
       'Correct',
-      'Correct',
       'NotSet',
+      'Correct',
       'Incorrect'
     ], () => this.focusFirstIncorrect());
   }
 
+  handleKeyPress(event, index){
+    if(event.key == 'Enter'){
+      if(index + 1 < this.inputBoxRef.length){
+        if (this.answersAreMarked)
+          this.focusIncorrectAfter(index);
+        else
+          this.inputBoxRef[index + 1].focus();
+      } else {
+        this.submitButtonOnClick();
+      }
+    }
+  }
+
   renderInputboxes(){
     let boxes = new Array(this.props.numberOfBoxes).fill(null);
+    this.inputBoxRef = [];
     boxes = boxes.map((x, index) => {
       return <InputBox
                key={ index }
+               index={ index }
+               onKeyPressProp={this.handleKeyPress}
                /* give a callback so that we can get a reference to the inputbox DOM element */
-               inputRef={ el => this.inputBoxRef.push(el)} 
+               inputRef={ el => this.inputBoxRef[index] = el} 
                background_color={
                  CorrectColorMap[this.state.inputBoxStatus[index]]
                } />;
