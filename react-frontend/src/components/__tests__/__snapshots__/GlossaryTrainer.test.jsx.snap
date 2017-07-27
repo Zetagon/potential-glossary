@@ -28,7 +28,7 @@ exports[`test test 1`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -39,7 +39,7 @@ exports[`test test 1`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -50,7 +50,7 @@ exports[`test test 1`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -61,7 +61,7 @@ exports[`test test 1`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -72,7 +72,7 @@ exports[`test test 1`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -130,7 +130,7 @@ exports[`test test 2`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -141,7 +141,7 @@ exports[`test test 2`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -152,7 +152,7 @@ exports[`test test 2`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -163,7 +163,7 @@ exports[`test test 2`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input
@@ -174,7 +174,7 @@ exports[`test test 2`] = `
         className="input-box"
         style={
           Object {
-            "background": undefined,
+            "background": "white",
           }
         }>
         <input

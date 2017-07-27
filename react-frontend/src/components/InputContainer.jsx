@@ -48,10 +48,19 @@ class InputContainer extends Component {
     super(props);
 
     this.state = {
-      inputBoxStatus: []
+      inputBoxStatus: new Array(this.props.numberOfBoxes).fill('NotSet')
     }
     this.inputBoxRef = [];/* An array of references to inputbox dom-elements */ 
     this.highLightInputBoxes = this.highLightInputBoxes.bind(this);
+  }
+
+  focusFirstIncorrect() {
+    for( let i = 0; i < this.inputBoxRef.length; i++) {
+      if ( this.state.inputBoxStatus[i] != 'Correct') {
+        this.inputBoxRef[i].focus();
+        return
+      }
+    }
   }
 
   renderSubmitButton(){
@@ -67,11 +76,10 @@ class InputContainer extends Component {
     this.highLightInputBoxes([
       'Correct',
       'Correct',
-      'Incorrect',
+      'Correct',
       'NotSet',
       'Incorrect'
-    ]);
-    this.inputBoxRef[1].focus();
+    ], () => this.focusFirstIncorrect());
   }
 
   renderInputboxes(){
@@ -88,10 +96,16 @@ class InputContainer extends Component {
     return boxes;
   }
 
-  highLightInputBoxes(ary) {
-    this.setState({
-      inputBoxStatus:ary
-    });
+  highLightInputBoxes(ary, callback) {
+    if (callback){
+      this.setState({
+        inputBoxStatus:ary
+      }, callback);
+    } else {
+      this.setState({
+        inputBoxStatus:ary
+      })
+    }
   }
 
   render(){

@@ -7,7 +7,7 @@ exports[`test number of boxes equal to synonyms 1`] = `
       className="input-box"
       style={
         Object {
-          "background": undefined,
+          "background": "white",
         }
       }>
       <input
@@ -18,7 +18,7 @@ exports[`test number of boxes equal to synonyms 1`] = `
       className="input-box"
       style={
         Object {
-          "background": undefined,
+          "background": "white",
         }
       }>
       <input
@@ -43,7 +43,7 @@ exports[`test number of boxes equal to synonyms 2`] = `
       className="input-box"
       style={
         Object {
-          "background": undefined,
+          "background": "white",
         }
       }>
       <input
@@ -54,7 +54,7 @@ exports[`test number of boxes equal to synonyms 2`] = `
       className="input-box"
       style={
         Object {
-          "background": undefined,
+          "background": "white",
         }
       }>
       <input
@@ -65,7 +65,7 @@ exports[`test number of boxes equal to synonyms 2`] = `
       className="input-box"
       style={
         Object {
-          "background": undefined,
+          "background": "white",
         }
       }>
       <input
@@ -76,7 +76,7 @@ exports[`test number of boxes equal to synonyms 2`] = `
       className="input-box"
       style={
         Object {
-          "background": undefined,
+          "background": "white",
         }
       }>
       <input
