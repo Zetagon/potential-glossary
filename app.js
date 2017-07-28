@@ -2,8 +2,10 @@
 /*jslint esversion: 6*/
 'use strict';
 require('dotenv').config();
+require('./logger/log');//Initialize winston logger
 const express       = require('express'),
       app           = express(),
+      winston       = require('winston'),
       bodyparser    = require('body-parser'),
       cookieParser  = require('cookie-parser'),
       http          = require('http'),
@@ -17,12 +19,15 @@ const express       = require('express'),
       path          = require('path'),
       port          = 8080;
 
+let mongooseLogger = winston.loggers.get('mongoose');
+let generalLogger = winston.loggers.get('general');
+
 mongoose.connect('mongodb://' + process.env.DB_HOST + ':/Users');
 let db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'Database connection error'));
+db.on('error', () => {mongooseLogger.error('Connection error!');});
 db.once('open', () =>{
-    console.log("Connection with mongodb established!");
+    mongooseLogger.info("Connection with mongodb established!");
     //TODO:
 });
 
@@ -79,5 +84,5 @@ app.use(function(err, req, res, next) {
 
 
 server.listen(port, () => {
-    console.log('Listening on: ' + server.address().port);
+    generalLogger.info('Listening on: ' + server.address().port);
 });
