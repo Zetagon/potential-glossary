@@ -6,6 +6,7 @@
  */
 /*jslint esversion:6*/
 import React, { Component } from 'react';
+import io from 'socket.io-client'
 import logo from '../logo.svg';
 import '../App.css';
 import '../../public/css/client-glos.css';
@@ -19,6 +20,7 @@ class GlossaryTrainer extends Component {
     this.state = {
       correctionMessage: "Correction!" 
     }
+    this.socket = io('/');
 
   }
 
@@ -47,7 +49,11 @@ class GlossaryTrainer extends Component {
           descriptionText="hej"
           descriptionImage="https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png"
         />
-        <InputContainer numberOfBoxes={ 5 } onClickProp={this.handleSubmit.bind(this)}/>
+        <InputContainer
+          numberOfBoxes={ 5 }
+          onClickProp={this.handleSubmit.bind(this)}
+          socket={this.socket}
+        />
         { this.renderCorrectionArea() }
       </div>
     );

@@ -84,14 +84,17 @@ class InputContainer extends Component {
   }
 
   submitButtonOnClick(){
-    this.answersAreMarked = true;
-    this.highLightInputBoxes([
-      'Correct',
-      'Correct',
-      'NotSet',
-      'Correct',
-      'Incorrect'
-    ], () => this.focusFirstIncorrect());
+    this.props.socket.emit('sendUserInput');
+    this.props.socket.on('sendUserInputResponse', (data) => {
+      console.log(data)
+      this.answersAreMarked = true;
+      let ary = [];
+      for (let i = 0; i < data.length; i++) {
+        if(data[i]) ary.push('Correct');
+        else ary.push('Incorrect');
+      }
+      this.highLightInputBoxes(ary , () => this.focusFirstIncorrect());
+    })
   }
 
   handleKeyPress(event, index){
