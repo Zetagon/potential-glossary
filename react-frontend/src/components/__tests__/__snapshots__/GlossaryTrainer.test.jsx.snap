@@ -2,24 +2,7 @@ exports[`test test 1`] = `
 <div
   className="App">
   <div
-    className="description-container">
-    <div
-      className="description-box">
-      <div
-        className="description-text">
-         
-        hej
-         
-      </div>
-      <div
-        className="description-image"
-        style={
-          Object {
-            "backgroundImage": "url(https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png)",
-          }
-        } />
-    </div>
-  </div>
+    className="description-container" />
   <div
     className="input-container">
     <div
@@ -109,24 +92,7 @@ exports[`test test 2`] = `
 <div
   className="App">
   <div
-    className="description-container">
-    <div
-      className="description-box">
-      <div
-        className="description-text">
-         
-        hej
-         
-      </div>
-      <div
-        className="description-image"
-        style={
-          Object {
-            "backgroundImage": "url(https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png)",
-          }
-        } />
-    </div>
-  </div>
+    className="description-container" />
   <div
     className="input-container">
     <div

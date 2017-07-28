@@ -21,6 +21,7 @@ class GlossaryTrainer extends Component {
       correctionMessage: "Correction!" 
     }
     this.socket = io('/');
+    this.socket.emit('getDescription');
 
   }
 
@@ -48,11 +49,12 @@ class GlossaryTrainer extends Component {
         <DescriptionContainer
           descriptionText="hej"
           descriptionImage="https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png"
+          socket={this.socket}
         />
         <InputContainer
+          socket={this.socket}
           numberOfBoxes={ 5 }
           onClickProp={this.handleSubmit.bind(this)}
-          socket={this.socket}
         />
         { this.renderCorrectionArea() }
       </div>
