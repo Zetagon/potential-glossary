@@ -15,7 +15,8 @@ module.exports = function init(pIo, pDb, sessionMiddleware) {
         sessionMiddleware(socket.request, {}, next);
     });
 
-    if (process.env.DEPLOY == 'env') {
+    if (process.env.DEPLOY == 'dev') {
+      console.log('In development mode')
         description = [ // Example of valid description array
             {
               text: "",
