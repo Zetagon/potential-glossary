@@ -14,10 +14,13 @@ import {DescriptionContainer} from './DescriptionContainer.jsx'
 import {InputContainer, InputBox } from './InputContainer.jsx'
 import CorrectionArea from './CorrectionArea.jsx'
 
+import {Correct, Incorrect, NotSet} from '../util/CorrectionStatusMap';
+
 class GlossaryTrainer extends Component {
   constructor(props){
     super(props);
     this.setCorrectionString = this.setCorrectionString.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       correctionMessage: "Correction!",
       descriptions: []
@@ -37,7 +40,19 @@ class GlossaryTrainer extends Component {
 
 
   handleSubmit(){
-    this.setCorrectionString('fel svar!');
+    this.socket.emit('sendUserInput');
+
+    return new Promise(( resolve , reject ) => {
+      this.socket.on('sendUserInputResponse', (data) => {
+        console.log(data)
+        let ary = [];
+        for (let i = 0; i < data.length; i++) {
+          if(data[i]) ary.push(Correct);
+          else ary.push(Incorrect);
+        }
+        resolve( ary );
+      })
+    });
   }
 
   render(){
@@ -47,6 +62,7 @@ class GlossaryTrainer extends Component {
           descriptions={this.state.descriptions}
         />
         <InputContainer
+          handleSubmit={ this.handleSubmit }
           socket={this.socket}
           numberOfBoxes={ 5 }
           onClickProp={this.handleSubmit.bind(this)}
