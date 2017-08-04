@@ -46,9 +46,18 @@ class GlossaryTrainer extends Component {
       this.socket.on('sendUserInputResponse', (data) => {
         console.log(data)
         let ary = [];
+        let number_of_correct = 0;
         for (let i = 0; i < data.length; i++) {
-          if(data[i]) ary.push(Correct);
+          if(data[i]) {
+            ary.push(Correct);
+            number_of_correct++;
+          }
           else ary.push(Incorrect);
+        }
+        if( number_of_correct == data.length) {
+          this.setCorrectionString("Correct");
+        } else {
+          this.setCorrectionString("Incorrect!")
         }
         resolve( ary );
       })
