@@ -12,6 +12,7 @@ import '../App.css';
 import '../../public/css/client-glos.css';
 import {DescriptionContainer} from './DescriptionContainer.jsx'
 import {InputContainer, InputBox } from './InputContainer.jsx'
+import CorrectionArea from './CorrectionArea.jsx'
 
 class GlossaryTrainer extends Component {
   constructor(props){
@@ -34,15 +35,6 @@ class GlossaryTrainer extends Component {
     this.setState({correctionMessage:correction});
   }
 
-  renderCorrectionArea(){
-    return(
-      <div className="correction-container">
-        <div>
-          <div className="error-text"> {this.state.correctionMessage} </div>
-        </div>
-      </div>
-    );
-  }
 
   handleSubmit(){
     this.setCorrectionString('fel svar!');
@@ -59,7 +51,7 @@ class GlossaryTrainer extends Component {
           numberOfBoxes={ 5 }
           onClickProp={this.handleSubmit.bind(this)}
         />
-        { this.renderCorrectionArea() }
+        <CorrectionArea message={this.state.correctionMessage}/>
       </div>
     );
   }
