@@ -18,10 +18,15 @@ class GlossaryTrainer extends Component {
     super(props);
     this.setCorrectionString = this.setCorrectionString.bind(this);
     this.state = {
-      correctionMessage: "Correction!" 
+      correctionMessage: "Correction!",
+      descriptions: []
     }
     this.socket = io('/');
     this.socket.emit('getDescription');
+    this.socket.on('getDescriptionResponse', (data) => {
+      console.log('description received!' + data)
+      this.setState({descriptions:data});
+    })
 
   }
 
@@ -47,9 +52,7 @@ class GlossaryTrainer extends Component {
     return (
       <div className="App">
         <DescriptionContainer
-          descriptionText="hej"
-          descriptionImage="https://upload.wikimedia.org/wikipedia/commons/6/6c/Tomato-global.png"
-          socket={this.socket}
+          descriptions={this.state.descriptions}
         />
         <InputContainer
           socket={this.socket}
