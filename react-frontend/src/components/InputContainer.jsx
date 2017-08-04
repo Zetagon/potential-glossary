@@ -5,11 +5,9 @@ import '../App.css';
 import '../../public/css/client-glos.css';
 import InputBox from './InputBox.jsx';
 
-const CorrectColorMap = {
-  Incorrect:'red',
-  Correct:'green',
-  NotSet:'white'
-}
+import {Correct, Incorrect, NotSet} from '../util/CorrectionStatusMap';
+import CorrectColorMap from '../util/CorrectColorMap';
+
 
 //eslint-disable-next-line
 class InputContainer extends Component {
@@ -18,7 +16,7 @@ class InputContainer extends Component {
     super(props);
 
     this.state = {
-      inputBoxStatus: new Array(this.props.numberOfBoxes).fill('NotSet')
+      inputBoxStatus: new Array(this.props.numberOfBoxes).fill(NotSet)
     }
     this.inputBoxRef = [];/* An array of references to inputbox dom-elements */ 
     this.highLightInputBoxes = this.highLightInputBoxes.bind(this);
@@ -31,7 +29,7 @@ class InputContainer extends Component {
 
   focusIncorrectAfter(index) {
     for( let i = index + 1; i < this.inputBoxRef.length; i++) {
-      if ( this.state.inputBoxStatus[i] != 'Correct') {
+      if ( this.state.inputBoxStatus[i] != Correct) {
         this.inputBoxRef[i].focus();
         return true;
       }
@@ -48,6 +46,7 @@ class InputContainer extends Component {
     );
   }
 
+  // TODO: Move up maybe
   submitButtonOnClick(){
     this.props.socket.emit('sendUserInput');
     this.props.socket.on('sendUserInputResponse', (data) => {
@@ -55,8 +54,8 @@ class InputContainer extends Component {
       this.answersAreMarked = true;
       let ary = [];
       for (let i = 0; i < data.length; i++) {
-        if(data[i]) ary.push('Correct');
-        else ary.push('Incorrect');
+        if(data[i]) ary.push(Correct);
+        else ary.push(Incorrect);
       }
       this.highLightInputBoxes(ary , () => this.focusFirstIncorrect());
     })
