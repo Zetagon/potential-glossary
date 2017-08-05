@@ -23,13 +23,17 @@ class GlossaryTrainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       correctionMessage: "Correction!",
-      descriptions: []
+      descriptions: [],
+      toggle_status_key: true
     }
     this.socket = io('/');
     this.socket.emit('getDescription');
     this.socket.on('getDescriptionResponse', (data) => {
       console.log('description received!' + data)
-      this.setState({descriptions:data});
+      this.setState({
+        descriptions:data,
+        toggle_status_key: !this.state.toggle_status_key
+      });
     })
 
   }
@@ -67,10 +71,12 @@ class GlossaryTrainer extends Component {
   render(){
     return (
       <div className="App">
+        <button onClick={()=> this.socket.emit('getDescription')}/>
         <DescriptionContainer
           descriptions={this.state.descriptions}
         />
         <InputContainer
+          key={this.state.toggle_status_key}
           handleSubmit={ this.handleSubmit }
           socket={this.socket}
           numberOfBoxes={ 5 }

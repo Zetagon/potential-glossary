@@ -67,6 +67,7 @@ module.exports = function init(pIo, pDb, sessionMiddleware) {
 
             socket.on('getDescription', function() {
                 socket.emit('getDescriptionResponse', description);
+                description = nextDescription();
             });
 
             socket.on('sendUserInput', function(input){

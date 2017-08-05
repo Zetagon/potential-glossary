@@ -19,6 +19,8 @@ class InputContainer extends Component {
       inputBoxStatus: new Array(this.props.numberOfBoxes).fill(NotSet)
     }
     this.inputBoxRef = [];/* An array of references to inputbox dom-elements */ 
+
+    //binds
     this.highLightInputBoxes = this.highLightInputBoxes.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
