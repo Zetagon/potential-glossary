@@ -10,6 +10,8 @@ export default class InputBox extends Component {
     super(props);
     this.focus = this.focus.bind(this);
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {value: ''};
   }
 
 
@@ -21,6 +23,11 @@ export default class InputBox extends Component {
   handleKeyEvent(event){
     this.props.onKeyPressProp(event, this.props.index);
   }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+    this.props.saveInput(this.props.index, event.target.value);
+  }
   render(){
     let divStyle = {
       background: this.props.background_color
@@ -30,6 +37,8 @@ export default class InputBox extends Component {
         className="input-box"
         style={divStyle}>
         <input
+          onChange={ this.handleChange }
+          value={ this.state.value}
           className="the-input"
           tabIndex="1"
           onKeyPress={this.handleKeyEvent}

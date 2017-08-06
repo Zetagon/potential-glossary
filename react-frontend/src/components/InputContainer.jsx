@@ -18,11 +18,13 @@ class InputContainer extends Component {
     this.state = {
       inputBoxStatus: new Array(this.props.numberOfBoxes).fill(NotSet)
     }
+    this.userInputAry = new Array(this.props.numberOfBoxes);
     this.inputBoxRef = [];/* An array of references to inputbox dom-elements */ 
 
     //binds
     this.highLightInputBoxes = this.highLightInputBoxes.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.saveUserInputAry = this.saveUserInputAry.bind(this);
   }
 
   focusFirstIncorrect() {
@@ -48,12 +50,16 @@ class InputContainer extends Component {
     );
   }
 
-  // TODO: Move up maybe
   submitButtonOnClick(){
-    this.props.handleSubmit().then( ( correctionAry ) => {
+    this.props.handleSubmit(this.userInputAry).then( ( correctionAry ) => {
       this.answersAreMarked = true;
       this.highLightInputBoxes(correctionAry , () => this.focusFirstIncorrect());
     });
+  }
+
+  saveUserInputAry(index, value){
+    this.userInputAry[index] = value;
+    console.log(this.userInputAry)
   }
 
   handleKeyPress(event, index){
@@ -76,6 +82,7 @@ class InputContainer extends Component {
       return <InputBox
                key={ index }
                index={ index }
+               saveInput={ this.saveUserInputAry }
                onKeyPressProp={this.handleKeyPress}
                /* give a callback so that we can get a reference to the inputbox DOM element */
                inputRef={ el => this.inputBoxRef[index] = el} 

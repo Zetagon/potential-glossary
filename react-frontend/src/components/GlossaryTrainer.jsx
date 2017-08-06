@@ -43,8 +43,8 @@ class GlossaryTrainer extends Component {
   }
 
 
-  handleSubmit(){
-    this.socket.emit('sendUserInput');
+  handleSubmit( userInputAry ){
+    this.socket.emit('sendUserInput', userInputAry);
 
     return new Promise(( resolve , reject ) => {
       this.socket.on('sendUserInputResponse', (data) => {
@@ -60,6 +60,7 @@ class GlossaryTrainer extends Component {
         }
         if( number_of_correct == data.length) {
           this.setCorrectionString("Correct");
+          this.socket.emit('getDescription')
         } else {
           this.setCorrectionString("Incorrect!")
         }
