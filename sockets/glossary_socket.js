@@ -1,9 +1,12 @@
 /*jslint node: true*/
 /*jslint esversion: 6*/
 'use strict';
+let checkMatchBoolean = require('../util/checkAnswer').checkMatchBoolean;
+
 let io,
     getUser,
     db,
+    answer,
     nextDescription,
     allClients = [];
 module.exports = function init(pIo, pDb, sessionMiddleware) {
@@ -52,6 +55,23 @@ module.exports = function init(pIo, pDb, sessionMiddleware) {
           ];
         };
         getUser = function(){ return 'Testuser'; };
+
+        answer = {
+            synonyms: [
+                {
+                    alternatives: [
+                        {text: "hej"},
+                        {text: "hejsan"}
+                    ]
+                },
+                {
+                    alternatives: [
+                        {text: "god kväll"},
+                        {text: "god afton"}
+                    ]
+                }
+            ]
+        } 
     }
 
     io.on('connection', function(socket) {
@@ -70,8 +90,14 @@ module.exports = function init(pIo, pDb, sessionMiddleware) {
                 description = nextDescription();
             });
 
-            socket.on('sendUserInput', function(input){
-                socket.emit('sendUserInputResponse', [true, false, true, true, true]);
+            socket.on('sendUserInput', function(inputAry){
+                console.log(inputAry)
+                // socket.emit('sendUserInputResponse', [true, true , true, true, true]);
+                let returnAry = []
+                for( let i = 0; i < inputAry.length; i++){
+                    returnAry.push(checkMatchBoolean(inputAry[i], answer) );
+                }
+                socket.emit('sendUserInputResponse', returnAry);
             });
 
 
@@ -81,4 +107,5 @@ module.exports = function init(pIo, pDb, sessionMiddleware) {
             });
         // }
     });
+
 };
